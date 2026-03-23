@@ -16,6 +16,19 @@
 
 ---
 
+## 👁️ System in Action
+
+![Live Surveillance and Tactical Feed Processing](docs/surveillance_pipeline.jpg)
+
+**Visual Intelligence Breakdown:**
+The image above demonstrates the system simultaneously executing several pipelines over a complex roundabout intersection:
+- **Persistent Object Tracking:** YOLOv8 recognizes and maintains continuous track IDs tightly bounded around light vehicles (`car`), heavy transports (`truck`), and pedestrians (`person`).
+- **Real-time Anomaly Engine:** Notice the staggered yellow `! DIRECTION REVERSAL` alerts on the top-left overlay. Our trajectory analyzer actively flags suspicious or erratic positional deviations frame-by-frame.
+- **Geospatial Formation Inference:** Through Scikit-Learn DBSCAN clustering, the spatial distribution of the active entities is successfully categorized as `MULTI-CLUSTER / FLANKING` at the bottom left.
+- **Dynamic Threat Calculation:** Concluding the synthesis of high target density, heavy vehicle presence, and movement anomalies, the matrix scales the current frame's Threat Level to an elevated `100/100`.
+
+---
+
 ## 🏗️ Technical Architecture
 
 ### 1. Backend (`/backend`)
