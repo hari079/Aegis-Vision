@@ -62,13 +62,3 @@ The image above demonstrates the system simultaneously executing several pipelin
    npm run dev -- --host
    ```
 4. Access the dashboard via your local host (typically `http://localhost:5173`).
-
----
-
-## 📊 Model Training & Accuracy (Epoch Testing)
-
-Currently, **Aegis Vision** runs entirely on pre-trained **YOLOv8 Nano/Medium (`yolov8n.pt`/`yolov8m.pt`)** weights using transfer learning from canonical databanks like MS COCO. 
-
-**Is further Epoch Training needed for Accuracy Testing?**
-- **General Surveillance:** No. The current model dynamically filters for required tactical classes (Persons, Cars, Trucks, Buses) and handles bounding box tracking with high zero-shot temporal accuracy immediately out of the box. The internal `ByteTrack` pipeline negates frame-stutter artifacts, keeping tracking consistent.
-- **Domain-Specific Constraints (E.g. IR/Thermal mapping or custom Micro-UAVs):** Only if you begin sourcing proprietary camera data outside the visible spectrum. If this is required, you can update the system by placing a custom dataset inside the directory, running `yolo task=detect mode=train data=dataset.yaml epochs=50 imgsz=640`, and dropping the resulting `best.pt` file into the frontend's Inference Model dropdown!
