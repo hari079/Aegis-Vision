@@ -18,8 +18,6 @@
 
 ## 👁️ System in Action
 
-![Live Surveillance and Tactical Feed Processing](docs/surveillance_pipeline.jpg)
-
 **Visual Intelligence Breakdown:**
 The image above demonstrates the system simultaneously executing several pipelines over a complex roundabout intersection:
 - **Persistent Object Tracking:** YOLOv8 recognizes and maintains continuous track IDs tightly bounded around light vehicles (`car`), heavy transports (`truck`), and pedestrians (`person`).
