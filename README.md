@@ -1,0 +1,62 @@
+# Aegis Vision — Tactical Intelligence System
+
+**Aegis Vision** is a production-ready, real-time multi-object tracking and analytics system designed to process surveillance footage, analyze entity behaviors, and present critical tactical information via a high-performance modern dashboard.
+
+## 🚀 Features & Capabilities
+
+- **Real-Time Video Streaming Interface:** Utilizes Websockets to transmit real-time annotated frames and data telemetry instantaneously between the AI pipeline and the frontend.
+- **Advanced Object Tracking:** Powered by **YOLOv8** and customized **ByteTrack**, accurately acquiring target classes (Persons, Light/Heavy Vehicles, etc.) under various confidences and tracking buffers.
+- **Behavioral Anomaly Detection:** Analyzes entity movement histories to catch critical events implicitly:
+  - **Speed Spikes:** Targets suddenly accelerating.
+  - **Direction Reversals:** Suspicious pathing anomalies.
+  - **Entity Convergence:** Multiple tracks converging aggressively on points of interest.
+- **Tactical Formation Analysis:** Leverages **DBSCAN Clustering (Scikit-Learn)** on geographical centroid distribution to estimate large-group behavior patterns like *Convoy/Patrols*, *Grouped Formations*, or *Scattered Flanking*.
+- **Live Target Matrix & Threat Scoring:** Maintains active threat models based on weighted tracking of asset classes across the viewport area.
+- **Premium Dark-Mode Dashboard:** Built natively with React and Tailwind V4, providing an exceptionally clean, responsive, glass-morphism tactical layout.
+
+---
+
+## 🏗️ Technical Architecture
+
+### 1. Backend (`/backend`)
+- **Framework:** FastAPI + Uvicorn 
+- **Computer Vision:** OpenCV (`cv2`) + Ultralytics (YOLOv8)
+- **Data & ML:** Numpy, Scikit-Learn (DBSCAN)
+- **Communication:** Python WebSockets (`ws://`) + Multipart form uploads
+- **Pipeline:** `pipeline.py` maintains stateful memory dictionaries mapping target trackers to trajectory histories, evaluating moving metrics every frame.
+
+### 2. Frontend (`/frontend`)
+- **Framework:** React 18 + Vite
+- **Styling:** Tailwind CSS V4 + Custom global CSS (`.glass-panel`)
+- **Components:** Modular architecture separating the Video Feed, Anomaly Log, Active Targets Grid, and Control Panels.
+
+---
+
+## 💻 Setup & Execution
+
+### Running the Backend
+1. Open a terminal in the `backend` directory.
+2. Activate the virtual environment: `.\venv\Scripts\activate`
+3. Start the FastAPI server:
+   ```powershell
+   python -m uvicorn main:app --port 8000
+   ```
+
+### Running the Frontend
+1. Open a terminal in the `frontend` directory.
+2. Ensure dependencies are installed via `npm install`.
+3. Start the Vite development server:
+   ```powershell
+   npm run dev -- --host
+   ```
+4. Access the dashboard via your local host (typically `http://localhost:5173`).
+
+---
+
+## 📊 Model Training & Accuracy (Epoch Testing)
+
+Currently, **Aegis Vision** runs entirely on pre-trained **YOLOv8 Nano/Medium (`yolov8n.pt`/`yolov8m.pt`)** weights using transfer learning from canonical databanks like MS COCO. 
+
+**Is further Epoch Training needed for Accuracy Testing?**
+- **General Surveillance:** No. The current model dynamically filters for required tactical classes (Persons, Cars, Trucks, Buses) and handles bounding box tracking with high zero-shot temporal accuracy immediately out of the box. The internal `ByteTrack` pipeline negates frame-stutter artifacts, keeping tracking consistent.
+- **Domain-Specific Constraints (E.g. IR/Thermal mapping or custom Micro-UAVs):** Only if you begin sourcing proprietary camera data outside the visible spectrum. If this is required, you can update the system by placing a custom dataset inside the directory, running `yolo task=detect mode=train data=dataset.yaml epochs=50 imgsz=640`, and dropping the resulting `best.pt` file into the frontend's Inference Model dropdown!
