@@ -19,6 +19,7 @@
 ## 👁️ System in Action
 
 **Visual Intelligence Breakdown:**
+![image alt](https://github.com/hari079/Aegis-Vision/blob/b571784f5e6a84646c9f367e7636357a5a317257/Screenshot%202026-03-24%20001058.png)
 The image above demonstrates the system simultaneously executing several pipelines over a complex roundabout intersection:
 - **Persistent Object Tracking:** YOLOv8 recognizes and maintains continuous track IDs tightly bounded around light vehicles (`car`), heavy transports (`truck`), and pedestrians (`person`).
 - **Real-time Anomaly Engine:** Notice the staggered yellow `! DIRECTION REVERSAL` alerts on the top-left overlay. Our trajectory analyzer actively flags suspicious or erratic positional deviations frame-by-frame.
